@@ -17,9 +17,12 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Smart Traffic Solutions API", version="1.0.0")
 
+origins = [
+    "https://casatraffic-ai.up.railway.app",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
