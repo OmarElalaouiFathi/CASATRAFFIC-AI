@@ -1,3 +1,16 @@
+import os
+import redis
+
+redis_host = os.getenv("REDIS_HOST", "redis-production-a0ba.up.railway.app")
+redis_port = int(os.getenv("REDIS_PORT", 6379))
+redis_password = os.getenv("REDIS_PASSWORD", "")
+
+redis_client = redis.Redis(
+    host=redis_host,
+    port=redis_port,
+    password=redis_password if redis_password else None,
+    decode_responses=True
+)
 import json
 import redis.asyncio as redis
 from typing import Any, Optional, List, Dict
