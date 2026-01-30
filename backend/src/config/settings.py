@@ -2,10 +2,10 @@ from pydantic_settings import BaseSettings
 from typing import Optional
 
 class Settings(BaseSettings):
-    REDIS_HOST: str = "localhost"  # Change to your cloud Redis host if using managed Redis
-    REDIS_PORT: int = 6379
-    REDIS_DB: int = 0
-    REDIS_PASSWORD: Optional[str] = None
+    REDIS_HOST: str = os.getenv("REDISHOST", "localhost")
+    REDIS_PORT: int = int(os.getenv("REDISPORT", 6379))
+    REDIS_DB: int = int(os.getenv("REDIS_DB", 0))
+    REDIS_PASSWORD: Optional[str] = os.getenv("REDISPASSWORD", None)
     GOOGLE_MAPS_API_KEY: str = ""
     MAPBOX_API_KEY: str = ""
     OPENWEATHER_API_KEY: str = ""
