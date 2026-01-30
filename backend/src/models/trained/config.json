@@ -1,0 +1,34 @@
+{
+  "sequence_length": 24,
+  "zone_cols": [
+    "origin_population",
+    "origin_density",
+    "origin_tram_stations",
+    "origin_bus_stations",
+    "origin_primary_roads",
+    "origin_highways",
+    "origin_industrial_pct",
+    "origin_residential_pct",
+    "origin_university_pct",
+    "origin_commercial_buildings",
+    "dest_population",
+    "dest_density",
+    "dest_tram_stations",
+    "dest_bus_stations",
+    "dest_primary_roads",
+    "dest_highways",
+    "dest_industrial_pct",
+    "dest_residential_pct",
+    "dest_university_pct",
+    "dest_commercial_buildings",
+    "distance_km"
+  ],
+  "temporal_cols": [
+    "day_norm",
+    "hour_norm",
+    "is_weekend",
+    "is_rush"
+  ],
+  "test_mae": 0.18753182888031006,
+  "trained_at": "2026-01-29T11:26:04.472405"
+}

@@ -1,0 +1,5 @@
+export interface TrafficData {road_segment_id: string; road_name: string; latitude: number; longitude: number; congestion_level: number; average_speed: number; vehicle_density: number; time: string; weather_temp?: number; weather_condition?: string; traffic_source?: 'google_maps' | 'simulated'; traffic_ratio?: number}
+export interface TrafficPrediction {road_segment_id: string; current_congestion: number; predicted_congestion: number; predicted_speed: number; confidence: number; time_horizon: number; prediction_time: string}
+export interface RouteOption {route_id: string; duration: number; distance: number; congestion_score: number; route_geojson: GeoJSON.LineString; description: string}
+export interface DashboardMetrics {average_congestion: number; active_segments: number; top_congested_areas: Array<{road_name: string; road_segment_id: string; avg_congestion: number}>; last_updated: string; period: string}
+export interface TrafficTrend {time: string; avg_congestion: number; avg_speed: number}

@@ -1,0 +1,33 @@
+# Backend Dependencies / Dépendances Backend
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.23
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+alembic==1.13.0
+
+# Redis Cache
+redis==5.0.1
+aioredis==2.0.1
+
+# HTTP Clients
+aiohttp==3.9.1
+httpx==0.25.2
+
+# Scheduling
+apscheduler==3.10.4
+
+# ML & Data Processing
+# tensorflow>=2.15.0  # Will be installed separately when needed for ML
+numpy>=1.26.0
+pandas>=2.1.0
+scikit-learn>=1.3.0
+
+# Utilities
+python-dotenv==1.0.0
+python-multipart==0.0.6
