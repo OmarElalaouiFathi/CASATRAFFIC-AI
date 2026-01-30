@@ -188,7 +188,7 @@ function AIPredictionsPanel({ segments, isLightMode }: { segments: any[]; isLigh
   const { data: predictionsData } = useQuery({
     queryKey: ['predictions', 'all'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:8000/api/prediction/segments?time_horizon=30');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/prediction/segments?time_horizon=30`);
       if (!response.ok) return null;
       return response.json();
     },
@@ -200,7 +200,7 @@ function AIPredictionsPanel({ segments, isLightMode }: { segments: any[]; isLigh
   const { data: modelInfo } = useQuery({
     queryKey: ['model', 'info'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:8000/api/prediction/model-info');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/prediction/model-info`);
       if (!response.ok) return null;
       return response.json();
     },
@@ -411,7 +411,7 @@ function AppContent() {
   const { data: predictionsData } = useQuery({
     queryKey: ['predictions', 'all'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:8000/api/prediction/segments?time_horizon=30');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/prediction/segments?time_horizon=30`);
       if (!response.ok) return null;
       return response.json();
     },
