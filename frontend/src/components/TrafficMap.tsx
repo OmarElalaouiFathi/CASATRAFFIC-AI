@@ -46,7 +46,7 @@ function TrafficMap({ onSegmentSelect, selectedSegment, isLightMode, onToggleMod
   const { data: predictionsData } = useQuery({
     queryKey: ['predictions', 'all'],
     queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/prediction/segments?time_horizon=30`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://backend-production-e652.up.railway.app'}/api/prediction/segments?time_horizon=30`);
       if (!response.ok) return null;
       return response.json();
     },

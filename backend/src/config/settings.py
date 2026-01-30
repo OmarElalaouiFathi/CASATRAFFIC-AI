@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     SERVER_HOST: str = "0.0.0.0"
     SERVER_PORT: int = 8000
     DEBUG: bool = True
-    CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173,https://casatraffic-ai.railway.internal"
+    CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173,https://casatraffic-ai.railway.internal,https://backend-production-e652.up.railway.app"
     DATA_COLLECTION_INTERVAL: int = 900
     WEATHER_COLLECTION_INTERVAL: int = 3600
     class Config:

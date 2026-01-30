@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { TrafficData, TrafficPrediction, RouteOption, DashboardMetrics, TrafficTrend } from '../types';
 
-const apiClient = axios.create({baseURL: import.meta.env.VITE_API_BASE_URL || 'https://casatraffic-ai.railway.internal', headers: {'Content-Type': 'application/json'}});
+const apiClient = axios.create({baseURL: import.meta.env.VITE_API_BASE_URL || 'https://backend-production-e652.up.railway.app', headers: {'Content-Type': 'application/json'}});
 
 export const trafficApi = {
   getCurrentTraffic: async () => (await apiClient.get<{data: TrafficData[]; count: number; timestamp: string}>('/api/traffic/current')).data,
