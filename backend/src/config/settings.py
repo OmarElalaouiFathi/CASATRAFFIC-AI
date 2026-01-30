@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings
 from typing import Optional
 
 class Settings(BaseSettings):
+    REDIS_URL: Optional[str] = os.getenv("REDIS_URL", "redis://default:ftXheGkOmHtUCWHDvPlghHmPIVAQRfBb@")
     REDIS_HOST: str = os.getenv("REDISHOST", "localhost")
     REDIS_PORT: int = int(os.getenv("REDISPORT", 6379))
     REDIS_DB: int = int(os.getenv("REDIS_DB", 0))

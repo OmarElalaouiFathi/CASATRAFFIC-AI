@@ -12,8 +12,18 @@ class RedisClient:
         self.pool: Optional[redis.ConnectionPool] = None
     async def connect(self):
         try:
-            self.pool = redis.ConnectionPool(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB, password=settings.REDIS_PASSWORD, max_connections=50, decode_responses=True)
-            self.redis = redis.Redis(connection_pool=self.pool)
+            if settings.REDIS_URL:
+                self.redis = redis.from_url(settings.REDIS_URL, decode_responses=True, max_connections=50)
+            else:
+                self.pool = redis.ConnectionPool(
+                    host=settings.REDIS_HOST,
+                    port=settings.REDIS_PORT,
+                    db=settings.REDIS_DB,
+                    password=settings.REDIS_PASSWORD,
+                    max_connections=50,
+                    decode_responses=True
+                )
+                self.redis = redis.Redis(connection_pool=self.pool)
             await self.redis.ping()
             logger.info("Redis connected")
         except Exception as e:
