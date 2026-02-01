@@ -10,6 +10,9 @@ import aiohttp
 from dotenv import load_dotenv
 
 from src.api.prediction import router as prediction_router
+from src.api.traffic import router as traffic_router
+from src.api.route import router as route_router
+from src.api.analytics import router as analytics_router
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -17,18 +20,18 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Smart Traffic Solutions API", version="1.0.0")
 
-origins = [
-    "https://casatraffic-ai.up.railway.app",
-]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 app.include_router(prediction_router, prefix="/api/prediction", tags=["prediction"])
+app.include_router(traffic_router, prefix="/api/traffic", tags=["traffic"])
+app.include_router(route_router, prefix="/api/routes", tags=["routes"])
+app.include_router(analytics_router, prefix="/api/analytics", tags=["analytics"])
 
 TRAFFIC_DATA = []
 COORDINATES = []
@@ -389,5 +392,4 @@ async def get_trends(hours: int = 24):
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.getenv("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

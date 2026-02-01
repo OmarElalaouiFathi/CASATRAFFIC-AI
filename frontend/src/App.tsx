@@ -13,7 +13,7 @@ import {
   Activity
 } from 'lucide-react';
 import TrafficMap from './components/TrafficMap';
-import { trafficApi } from './services/api';
+import { trafficApi, predictionApi } from './services/api';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -187,23 +187,15 @@ function AIPredictionsPanel({ segments, isLightMode }: { segments: any[]; isLigh
   // Fetch real predictions from API
   const { data: predictionsData } = useQuery({
     queryKey: ['predictions', 'all'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://backend-production-e652.up.railway.app'}/api/prediction/segments?time_horizon=30`);
-      if (!response.ok) return null;
-      return response.json();
-    },
-    refetchInterval: 60000, // Refresh every minute
+    queryFn: () => predictionApi.getAllPredictions(30),
+    refetchInterval: 60000,
     retry: 1,
   });
 
   // Fetch model info
   const { data: modelInfo } = useQuery({
     queryKey: ['model', 'info'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://backend-production-e652.up.railway.app'}/api/prediction/model-info`);
-      if (!response.ok) return null;
-      return response.json();
-    },
+    queryFn: () => predictionApi.getModelInfo(),
     retry: 1,
   });
 
@@ -410,11 +402,7 @@ function AppContent() {
   // Fetch predictions for all segments
   const { data: predictionsData } = useQuery({
     queryKey: ['predictions', 'all'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://backend-production-e652.up.railway.app'}/api/prediction/segments?time_horizon=30`);
-      if (!response.ok) return null;
-      return response.json();
-    },
+    queryFn: () => predictionApi.getAllPredictions(30),
     refetchInterval: 60000,
     retry: 1,
   });

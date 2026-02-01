@@ -1,2 +1,0 @@
-python-3.11
-tensorflow==2.18.0

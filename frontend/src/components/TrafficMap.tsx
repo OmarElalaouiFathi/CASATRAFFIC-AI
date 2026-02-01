@@ -7,7 +7,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useQuery } from '@tanstack/react-query';
-import { trafficApi } from '../services/api';
+import { trafficApi, predictionApi } from '../services/api';
 
 interface TrafficMapProps {
   onSegmentSelect: (segmentId: string | null) => void;
@@ -45,11 +45,7 @@ function TrafficMap({ onSegmentSelect, selectedSegment, isLightMode, onToggleMod
   // Fetch predictions for map popup
   const { data: predictionsData } = useQuery({
     queryKey: ['predictions', 'all'],
-    queryFn: async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://backend-production-e652.up.railway.app'}/api/prediction/segments?time_horizon=30`);
-      if (!response.ok) return null;
-      return response.json();
-    },
+    queryFn: () => predictionApi.getAllPredictions(30),
     refetchInterval: 60000,
     retry: 1,
   });
@@ -582,8 +578,12 @@ function TrafficMap({ onSegmentSelect, selectedSegment, isLightMode, onToggleMod
             <span className={`text-sm font-medium ${isLightMode ? 'text-gray-600' : 'text-[#c4c9cf]'}`}>Moderate</span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="w-3 h-3 rounded-full bg-[#FF1744] shadow-[0_0_8px_#FF1744]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#FF6D00] shadow-[0_0_8px_#FF6D00]"></div>
             <span className={`text-sm font-medium ${isLightMode ? 'text-gray-600' : 'text-[#c4c9cf]'}`}>Heavy</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="w-3 h-3 rounded-full bg-[#FF1744] shadow-[0_0_8px_#FF1744]"></div>
+            <span className={`text-sm font-medium ${isLightMode ? 'text-gray-600' : 'text-[#c4c9cf]'}`}>Severe</span>
           </div>
         </div>
         {selectedSegment && (
