@@ -14,6 +14,10 @@ async def get_current_traffic():
         cached = await redis_client.get("traffic:current")
         if cached:
             return {"data": cached, "count": len(cached), "timestamp": datetime.utcnow().isoformat(), "source": "cache"}
+        # Fallback to main.py's TRAFFIC_DATA
+        from src.main import TRAFFIC_DATA
+        if TRAFFIC_DATA:
+            return {"data": TRAFFIC_DATA, "count": len(TRAFFIC_DATA), "timestamp": datetime.utcnow().isoformat(), "source": "memory"}
         return {"data": [], "count": 0, "timestamp": datetime.utcnow().isoformat(), "source": "empty"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -46,8 +50,11 @@ async def get_road_segments():
         cached = await redis_client.get("traffic:segments")
         if cached:
             return {"segments": cached, "count": len(cached), "source": "cache"}
+        # Fallback to main.py's TRAFFIC_DATA
+        from src.main import TRAFFIC_DATA
+        if TRAFFIC_DATA:
+            return {"segments": TRAFFIC_DATA, "count": len(TRAFFIC_DATA), "source": "memory"}
         monitoring_points = generate_monitoring_points()
-        await redis_client.set("traffic:segments", monitoring_points, ttl=3600)
         return {"segments": monitoring_points, "count": len(monitoring_points), "source": "generated"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
